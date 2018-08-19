@@ -1,4 +1,4 @@
-package com.cassio.cursomc.demo;
+package com.cassio.cursomc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
