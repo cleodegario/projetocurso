@@ -1,8 +1,12 @@
 package com.cassio.cursomc;
 
 import com.cassio.cursomc.domain.Categoria;
+import com.cassio.cursomc.domain.Cidade;
+import com.cassio.cursomc.domain.Estado;
 import com.cassio.cursomc.domain.Produto;
 import com.cassio.cursomc.repositories.CategoriaRepository;
+import com.cassio.cursomc.repositories.CidadeRepository;
+import com.cassio.cursomc.repositories.EstadoRepository;
 import com.cassio.cursomc.repositories.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -19,6 +23,12 @@ public class CursomcApplication implements CommandLineRunner {
 
     @Autowired
     ProdutoRepository produtoRepository;
+
+    @Autowired
+    CidadeRepository cidadeRepository;
+
+    @Autowired
+    EstadoRepository estadoRepository;
 
     public static void main(String[] args) {
 
@@ -43,5 +53,21 @@ public class CursomcApplication implements CommandLineRunner {
 
         categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
         produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
+
+        Estado estado = new Estado(null, "Minas Gerais");
+        Estado estado2 = new Estado(null, "São Paulo");
+
+        Cidade c1 = new Cidade(null, "Uberlandia", estado);
+        Cidade c2 = new Cidade(null, "São Paulo", estado2);
+        Cidade c3 = new Cidade(null, "Campinas", estado2);
+
+        estado.getCidades().add(c1);
+        estado2.getCidades().addAll(Arrays.asList(c2, c3));
+
+
+        estadoRepository.saveAll(Arrays.asList(estado, estado2));
+        cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
+
+
     }
 }
