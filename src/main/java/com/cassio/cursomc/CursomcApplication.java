@@ -1,6 +1,7 @@
 package com.cassio.cursomc;
 
 import com.cassio.cursomc.domain.*;
+import com.cassio.cursomc.domain.enums.EnumEstadoPagamento;
 import com.cassio.cursomc.domain.enums.EnumTipoCliente;
 import com.cassio.cursomc.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 @SpringBootApplication
@@ -80,5 +82,22 @@ public class CursomcApplication implements CommandLineRunner {
         clienteRepository.save(cliente);
 
         enderecoRepository.saveAll(Arrays.asList(e1, e2));
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+        Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), e1, cliente);
+        Pedido ped2 = new Pedido(null, sdf.parse("10/10/2017 19:32"), e2, cliente);
+
+        Pagamento pagto1 = new PagamentoCartao(null, EnumEstadoPagamento.QUITADO, ped1, 6);
+        ped1.setPagamento(pagto1);
+
+        Pagamento pagto2 = new PagamentoBoleto(null, EnumEstadoPagamento.PENDENTE, ped2, sdf.parse("20/10/2017 00:00"), null);
+        ped2.setPagamento(pagto2);
+
+        cliente.getPedidos().addAll(Arrays.asList(ped1, ped2));
+
+
+
+
     }
 }
