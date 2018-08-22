@@ -33,6 +33,12 @@ public class CursomcApplication implements CommandLineRunner {
     @Autowired
     ClienteRepository clienteRepository;
 
+    @Autowired
+    PagamentoRepository pagamentoRepository;
+
+    @Autowired
+    PedidoRepository pedidoRepository;
+
     public static void main(String[] args) {
 
         SpringApplication.run(CursomcApplication.class, args);
@@ -96,6 +102,9 @@ public class CursomcApplication implements CommandLineRunner {
 
         cliente.getPedidos().addAll(Arrays.asList(ped1, ped2));
 
+        pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
+
+        pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
 
 
 
