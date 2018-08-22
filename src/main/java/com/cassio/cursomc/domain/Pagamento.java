@@ -1,6 +1,7 @@
 package com.cassio.cursomc.domain;
 
 import com.cassio.cursomc.domain.enums.EnumEstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,6 +18,7 @@ public abstract class Pagamento implements Serializable {
 
     private Integer estado;
 
+    @JsonBackReference
     @OneToOne
     @JoinColumn(name = "idPedido")
     @MapsId
